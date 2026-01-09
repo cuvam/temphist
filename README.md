@@ -4,7 +4,7 @@ Requires a "thermal log" that can be constructed using this CRON entry (requires
 0 * * * * echo "$(date '+\%Y-\%m-\%d \%H:\%M:\%S') Fan:$(sensors | awk '/Processor Fan/{print $3}') Pkg:$(sensors | awk '/Package id 0/{print $4}' | tr -d '°') Core0:$(sensors | awk '/Core 0/{print $3}' | tr -d '°') Core1:$(sensors | awk '/Core 1/{print $3}' | tr -d '°')" >> /path/to/thermal.log
 ```
 
-Edit /path/to/thermal.log to where you want the log to be stored, and change the line in the C code to match. Then, after a few days, you can see the hourly distribution over the day of your thermal load.
+Edit /path/to/thermal.log to where you want the log to be stored, and change the line in the C code to match. Then, after a few days, you can see the hourly distribution over the day.
 
 Example output:
 
