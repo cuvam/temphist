@@ -1,4 +1,4 @@
-Requires a "thermal log" that can be constructed using this CRON entry:
+Requires a "thermal log" that can be constructed using this CRON entry (requires `lm-sensors`):
 
 ```
 0 * * * * echo "$(date '+\%Y-\%m-\%d \%H:\%M:\%S') Fan:$(sensors | awk '/Processor Fan/{print $3}') Pkg:$(sensors | awk '/Package id 0/{print $4}' | tr -d '°') Core0:$(sensors | awk '/Core 0/{print $3}' | tr -d '°') Core1:$(sensors | awk '/Core 1/{print $3}' | tr -d '°')" >> /path/to/thermal.log
