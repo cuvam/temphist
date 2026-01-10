@@ -54,7 +54,7 @@ int main() {
 
     printf("Distribution per hour (%i samples):\n", numsamples);
 
-    char brightness[] =  {'.',':','=','+','#','%','@'};
+    char brightness[] =  {'.', ':', '-', '+', '#', '%', '@'};
     int brange = sizeof(brightness);
 
     for (int i = 0; i < brange; i++) {
