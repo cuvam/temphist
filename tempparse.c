@@ -52,29 +52,16 @@ int main() {
     }
     fclose(fp);
 
-    printf("Temperature breakdown, %i samples (#=%.3fC, min %.2fC, max %.2fC):\n\n", numsamples, 1.0/(float)(MAXTEMP-MINTEMP), (float)MINTEMP, (float)MAXTEMP);
+    printf("Distribution per hour (%i samples):\n", numsamples);
 
-    for (int i = 0; i < 24; i++) {
-        printf("%02i |", i);
-        float avg;
-        if (bucketsize[i] > 0) {
-            avg = (float)buckets[i] / (float)bucketsize[i];
-            int scaled = ((float)(avg - MINTEMP)/(float)(MAXTEMP-MINTEMP))*WIDTH;
-            if (scaled < 0) scaled = 0;
-            if (scaled > WIDTH) scaled = WIDTH;
-            printf(" %.2fC ", avg);
-            for (int j = 0; j < scaled; j++)
-                putchar('#');
-        }
-        printf("\n");
-    }
-
-    printf("\n\nDistribution per hour:\n\n");
-
-    char brightness[] = { '.', ':', ',', '\\', '\'', '-', '^', '=', '*', '+', '?', '!', '|', '#', 'X', '%', 'W', 'M', '@' };
+    char brightness[] =  {'.',':','=','+','#','%','@'};
     int brange = sizeof(brightness);
 
-    printf("    ");
+    for (int i = 0; i < brange; i++) {
+        putchar(brightness[i]);
+    }
+
+    printf("\n\n%2d+ ", DIST_MINTEMP);
     for (int j = DIST_MINTEMP; j <= DIST_MAXTEMP; j++)
         printf("%d", j % 10);
     printf("\n");
@@ -90,6 +77,17 @@ int main() {
             for (int j = 0; j < DIST_WIDTH; j++) {
                 putchar(brightness[(otherbuckets[i][j] * (brange - 1)) / highestBucket]);
             }
+        }
+        printf(" | ");
+        float avg;
+        if (bucketsize[i] > 0) {
+            avg = (float)buckets[i] / (float)bucketsize[i];
+            int scaled = ((float)(avg - MINTEMP)/(float)(MAXTEMP-MINTEMP))*WIDTH;
+            if (scaled < 0) scaled = 0;
+            if (scaled > WIDTH) scaled = WIDTH;
+            printf("%.2fC ", avg);
+            for (int j = 0; j < scaled; j++)
+                putchar('#');
         }
         printf("\n");
     }
