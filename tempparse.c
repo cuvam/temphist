@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 
 #define WIDTH 40
 #define MINTEMP 46
@@ -9,7 +10,7 @@
 #define DIST_WIDTH (DIST_MAXTEMP - DIST_MINTEMP + 1)
 
 int main() {
-    char *filename = "/path/to/thermal.log";
+    char *filename = "/home/yaadyam/uptime/thermal.log";
 
     FILE *fp = fopen(filename, "r");
     if (!fp) {
@@ -54,8 +55,8 @@ int main() {
 
     printf("Distribution per hour (%i samples):\n", numsamples);
 
-    char brightness[] =  {'.', ':', '-', '+', '#', '%', '@'};
-    int brange = sizeof(brightness);
+    char brightness[] =  " .:-+%#@";
+    int brange = strlen(brightness);
 
     for (int i = 0; i < brange; i++) {
         putchar(brightness[i]);
