@@ -53,19 +53,21 @@ int main() {
     }
     fclose(fp);
 
-    printf("Distribution per hour (%i samples):\n", numsamples);
+    printf("CPU temperature distribution per hour (%i samples):\n", numsamples);
 
     char brightness[] =  " .:-+%#@";
     int brange = strlen(brightness);
 
+    printf("less [");
     for (int i = 0; i < brange; i++) {
         putchar(brightness[i]);
     }
+    printf("] more\n\n");
 
-    printf("\n\n%2d+ ", DIST_MINTEMP);
+    printf("<%2d ", DIST_MINTEMP);
     for (int j = DIST_MINTEMP; j <= DIST_MAXTEMP; j++)
         printf("%d", j % 10);
-    printf("\n");
+    printf(" >%2d\n", DIST_MAXTEMP);
 
     for (int i = 0; i < 24; i++) {
         int highestBucket = 0;
