@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 #define WIDTH 40
@@ -10,7 +11,7 @@
 #define DIST_WIDTH (DIST_MAXTEMP - DIST_MINTEMP + 1)
 
 int main() {
-    char *filename = "/path/to/thermal.log";
+    char *filename = "/home/yaadyam/uptime/thermal.log";
 
     FILE *fp = fopen(filename, "r");
     if (!fp) {
@@ -27,6 +28,8 @@ int main() {
     char *line = NULL;
     unsigned long len;
     long num_bytes;
+    char *firsttimestamp = NULL;
+    char *lasttimestamp = NULL;
     while ((num_bytes = getline(&line, &len, fp)) != EOF) {
         char timestamp[512];
         int hour;
@@ -49,13 +52,20 @@ int main() {
             if (idx < 0) idx = 0;
             if (idx >= DIST_WIDTH) idx = DIST_WIDTH - 1;
             otherbuckets[hour][idx]++;
+            if (firsttimestamp == NULL) {
+                firsttimestamp = strdup(timestamp);
+            }
+            if (lasttimestamp)
+                free(lasttimestamp);
+            lasttimestamp = strdup(timestamp);
         }
     }
     fclose(fp);
 
     printf("CPU temperature distribution per hour (%i samples):\n", numsamples);
+    printf("%s - %s\n", firsttimestamp, lasttimestamp);
 
-    char brightness[] =  " .:-+%#@";
+    char brightness[] =  " .:-+#@";
     int brange = strlen(brightness);
 
     printf("less [");
