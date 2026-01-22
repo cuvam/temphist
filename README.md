@@ -10,6 +10,7 @@ Example output:
 
 ```
 CPU temperature distribution per hour (535 samples):
+2025-12-30 - 2026-01-21
 less [ .:-+#@] more
 
 <42 234567890123456 >56
