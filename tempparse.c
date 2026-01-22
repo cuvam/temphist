@@ -11,7 +11,7 @@
 #define DIST_WIDTH (DIST_MAXTEMP - DIST_MINTEMP + 1)
 
 int main() {
-    char *filename = "/home/yaadyam/uptime/thermal.log";
+    char *filename = "/path/to/thermal.log";
 
     FILE *fp = fopen(filename, "r");
     if (!fp) {
